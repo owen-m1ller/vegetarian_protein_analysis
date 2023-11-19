@@ -142,7 +142,7 @@ separates high-protein and low-protein food.
 
 ## Bivariate Analysis
 
-<iframe src="assets/protein-and-vegetarian.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/protein_and_vegetarian.html" width=800 height=600 frameBorder=0></iframe>
 
 The natural first two variables to explore the relationship between are
 `is_vegetarian` and `protein_pdv`. By creating an overlayed histogram,
