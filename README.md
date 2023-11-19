@@ -2,8 +2,8 @@
 
 ## Introduction
 
-With the rise of the internet, it was natural that many people would
-shift away from cookbooks and classes to webpages where anyone
+With the rise of the internet, it's natural that many people have
+shifted away from cookbooks and classes to webpages where anyone
 can find a recipe for whatever they're craving in minutes.
 
 Websites like food.com (where these datasets were scraped from by 
@@ -30,7 +30,95 @@ of a recipe on food.com.
 
 Some relevant columns of the dataset are as follows:
 
-| column name | description |
+| Column name | Description |
 | tags | A list of categories the food belongs to. We use this list to determine whether recipes are vegetarian or not |
 | nutrition | A list of data about the macronutrients of the food. We use this column to find the protein and calories of a recipe |
 
+## Data Cleaning
+
+To prepare to answer our question, the dataframe must be adapted into
+a useful form. The main components of this process were fixing the data
+types of the columns, extracting features useful to answering our
+question, and to check our dataframe for supsicious entries.
+
+### Fixing data types
+
+Immediately apparent when examining the dataframe is that the `submitted`
+and `date` columns are not in datetime format and that the `user_id`, 
+`recipe_id`, and `rating` columns are not in integer formats even though 
+all of the values they contain solely integer data. These are
+easily adjusted
+
+### Extracting useful features
+
+Dealing with the data stored in tags, nutrition, and steps is more
+troublesome because the data is stored a text version of a list.
+By converting the data into sets of tags, ingredients, and steps, we
+start to see the bigger picture of what we are working with.
+
+Below is a sample of tags in the `tags` column.
+
+`{'',
+ '1-day-or-more',
+ '15-minutes-or-less',
+ '3-steps-or-less',
+ '30-minutes-or-less',
+ '4-hours-or-less',
+ '5-ingredients-or-less',
+ '60-minutes-or-less',
+ 'Throw the ultimate fiesta with this sopaipillas recipe from Food.com.',
+ 'a1-sauce',
+ 'african',
+ 'american',
+ 'amish-mennonite',
+ 'angolan',
+ 'appetizers',
+ 'apples',
+ ... }`
+
+The `tags` column contains 549 unique tags, the `steps` column contains
+840168 unique steps, and the `ingredients` column contains 11170 unique
+ingredients. Since there is so much variety in the `steps` and 
+`uniqueness` columns, it is not worth examining them to find patterns
+in our dataset.  The `tags` column is much more promising. If we were
+using this data to create a predictive model, a one-hot encoding of the
+tags column might be very useful data. For the purpose of a hypothesis
+test, this overcomplicates the process and clutters our dataframe.
+Instead of a one-hot encoding, we will create a new feature: 
+`is_vegetarian`. `is_vegetarian` will be a boolean variable found by
+testing whether vegetarian or vegan is a tag present in each of the
+lists of tags.
+
+Each element in the nutrients column contains a list of length six
+with the following structure:
+`[calories, total_fat (percent daily value), sugar (percent daily value),
+protein (percent daily value), saturated fat (percent daily value), 
+carbohydrates (percent daily value)]` Since all the lists are the
+same length and each index corresponds to a feature, we can split this
+list into 6 new columns of our dataframe. We now have the feature
+`protein_pdv` corresponding to the percent daily value of protein in
+each recipe.
+
+### Examining suspicious data
+
+The `protein_pdv` column is essential for our analysis. Under 
+inspection,many entries of this column are 0 even when the 
+corresponding recipe is something abundant in protein like a ham dish.
+A strategy to mark these false 0's as NaN values is required. 
+Unfortunately, there are also many recipes for different drinks or 
+solutions which truly do have no protein. Luckily each recipe has
+a sizeable list of tags describing it. Some of these tags contain
+ingredients like ham, mushroom, lentils, tofu, or duck. By changing 
+the values in the `protein_pdv` column of rows where the protein content
+is 0 and a tag signaling that there is protein in the dish to NaN, we
+can largely deal with this issue.
+
+Finally, since the number of comments any recipe has is irrelevant to
+its protein content, we should groupby `recipe_id`. If we don't,
+the recipes with more comments will be weighted more heavily in our
+analysis than those which have fewer comments. We can also drop
+columns not relevant to our analysis
+
+The first 5 rows of the cleaned dataframe are displayed as follows.
+
+|   calories |   total_fat_pdv |   sugar_pdv |   sodium_pdv |   protein_pdv |   saturated_fat_pdv |   carbohydrates_pdv | is_vegetarian   |\n|-----------:|----------------:|------------:|-------------:|--------------:|--------------------:|--------------------:|:----------------|\n|      386.1 |              34 |           7 |           24 |            41 |                  62 |                   8 | False           |\n|      377.1 |              18 |         208 |           13 |            13 |                  30 |                  20 | False           |\n|      326.6 |              30 |          12 |           27 |            37 |                  51 |                   5 | False           |\n|      577.7 |              53 |         149 |           19 |            14 |                  67 |                  21 | False           |\n|      386.9 |               0 |         347 |            0 |             1 |                   0 |                  33 | False           |
