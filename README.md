@@ -128,3 +128,9 @@ The first 5 rows of the cleaned dataframe are displayed as follows.
 |      326.6 |              30 |            37 |                  51 |                   5 | False           |
 |      577.7 |              53 |            14 |                  67 |                  21 | False           |
 |      386.9 |               0 |             1 |                   0 |                  33 | False           |
+
+## Univariate Analysis
+
+<iframe src="assets/protein-dense-hist.html" width=800 height=600 frameBorder=0></iframe>
+
+#
