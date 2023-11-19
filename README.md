@@ -43,15 +43,14 @@ question, and to check our dataframe for supsicious entries.
 
 ### Fixing data types
 
-Immediately apparent when examining the dataframe is that the `submitted`
-and `date` columns are not in datetime format and that the `user_id`, 
-`recipe_id`, and `rating` columns are not in integer formats even though 
-all of the values they contain solely integer data. These are
-easily adjusted
+It is apparent after using the `info()` command that the `submitted`
+and `date` columns are not in datetime format. Also, 
+the `user_id`, `recipe_id`, and `rating` columns are not stored as
+integers. These are easily adjusted to save space and improve clarity
 
 ### Extracting useful features
 
-Dealing with the data stored in tags, nutrition, and steps is more
+Dealing with the data stored in `tags`, `nutrition`, and `steps` is more
 troublesome because the data is stored a text version of a list.
 By converting the data into sets of tags, ingredients, and steps, we
 start to see the bigger picture of what we are working with.
@@ -95,22 +94,23 @@ with the following structure:
 protein (percent daily value), saturated fat (percent daily value), 
 carbohydrates (percent daily value)]` Since all the lists are the
 same length and each index corresponds to a feature, we can split this
-list into 6 new columns of our dataframe. We now have the feature
-`protein_pdv` corresponding to the percent daily value of protein in
-each recipe.
+list into 6 new columns in our dataframe. We now have the feature
+`protein_pdv` corresponding to the percent of the daily recommended
+amount of protein in each recipe.
 
 ### Examining suspicious data
 
-The `protein_pdv` column is essential for our analysis. Under 
-inspection,many entries of this column are 0 even when the 
+The `protein_pdv` column is essential for our analysis.
+Unfortunately, many entries of this column are 0 even when the 
 corresponding recipe is something abundant in protein like a ham dish.
 A strategy to mark these false 0's as NaN values is required. 
-Unfortunately, there are also many recipes for different drinks or 
-solutions which truly do have no protein. Luckily each recipe has
-a sizeable list of tags describing it. Some of these tags contain
+Since there are also many recipes for different drinks or 
+brines which truly do have no protein, this could compromise our 
+analysis. Luckily each recipe has a sizeable list of tags describing
+it. Some of these tags contain
 ingredients like ham, mushroom, lentils, tofu, or duck. By changing 
-the values in the `protein_pdv` column of rows where the protein content
-is 0 and a tag signaling that there is protein in the dish to NaN, we
+the values of `protein_pdv` to NaN for rows where `protein_pdv`
+is 0 and a tag signaling that there is protein in the dish is present, we
 can largely deal with this issue.
 
 Finally, since the number of comments any recipe has is irrelevant to
@@ -121,4 +121,10 @@ columns not relevant to our analysis
 
 The first 5 rows of the cleaned dataframe are displayed as follows.
 
-|   calories |   total_fat_pdv |   sugar_pdv |   sodium_pdv |   protein_pdv |   saturated_fat_pdv |   carbohydrates_pdv | is_vegetarian   |\n|-----------:|----------------:|------------:|-------------:|--------------:|--------------------:|--------------------:|:----------------|\n|      386.1 |              34 |           7 |           24 |            41 |                  62 |                   8 | False           |\n|      377.1 |              18 |         208 |           13 |            13 |                  30 |                  20 | False           |\n|      326.6 |              30 |          12 |           27 |            37 |                  51 |                   5 | False           |\n|      577.7 |              53 |         149 |           19 |            14 |                  67 |                  21 | False           |\n|      386.9 |               0 |         347 |            0 |             1 |                   0 |                  33 | False           |
+| calories | total_fat_pdv | sugar_pdv | sodium_pdv | protein_pdv |   saturated_fat_pdv |   carbohydrates_pdv | is_vegetarian   |
+|-----------:|----------------:|------------:|-------------:|--------------:|--------------------:|--------------------:|:----------------|
+|      386.1 |              34 |           7 |           24 |            41 |                  62 |                   8 | False           |
+|      377.1 |              18 |         208 |           13 |            13 |                  30 |                  20 | False           |
+|      326.6 |              30 |          12 |           27 |            37 |                  51 |                   5 | False           |
+|      577.7 |              53 |         149 |           19 |            14 |                  67 |                  21 | False           |
+|      386.9 |               0 |         347 |            0 |             1 |                   0 |                  33 | False           |
