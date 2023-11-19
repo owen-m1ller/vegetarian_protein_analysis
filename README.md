@@ -121,10 +121,10 @@ columns not relevant to our analysis
 
 The first 5 rows of the cleaned dataframe are displayed as follows.
 
-'|   calories |   total_fat_pdv |   protein_pdv |   saturated_fat_pdv |   carbohydrates_pdv | is_vegetarian   |
+|   calories |   total_fat_pdv |   protein_pdv |   saturated_fat_pdv |   carbohydrates_pdv | is_vegetarian   |
 |-----------:|----------------:|--------------:|--------------------:|--------------------:|:----------------|
 |      386.1 |              34 |            41 |                  62 |                   8 | False           |
 |      377.1 |              18 |            13 |                  30 |                  20 | False           |
 |      326.6 |              30 |            37 |                  51 |                   5 | False           |
 |      577.7 |              53 |            14 |                  67 |                  21 | False           |
-|      386.9 |               0 |             1 |                   0 |                  33 | False           |'
+|      386.9 |               0 |             1 |                   0 |                  33 | False           |
