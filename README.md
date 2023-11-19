@@ -140,6 +140,23 @@ that there are no obvious subgroups. If we saw two spikes in the graph
 it would suggest that there is a singular distinguishing factor that
 separates high-protein and low-protein food.
 
+## Bivariate Analysis
+
 <iframe src="assets/protein-and-vegetarian.html" width=800 height=600 frameBorder=0></iframe>
 
-#
+The natural first two variables to explore the relationship between are
+`is_vegetarian` and `protein_pdv`. By creating an overlayed histogram,
+we can see the distribution of protein in each type of food. The
+vegetarian food appears to be much more concentrated around the
+low-protein area of the graph.
+
+To find correlating variables, I created a correlation matrix. The most
+notable correlation was between `calories` and `protein_pdv` with a
+correlation coefficient of about .6. When observing a scatter plot
+of `calories` vs. `protein_pdv`, this is not so obvious.
+
+<iframe src="assets/calories-protein.html" width=800 height=600 frameBorder=0></iframe>
+
+When the graph is also colored by `is_vegetarian`, it seems that
+vegetarian recipes contain less calories and less protein
+<iframe src="assets/calories-protein-color.html" width=800 height=600 frameBorder=0></iframe>
