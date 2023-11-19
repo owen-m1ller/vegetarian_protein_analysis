@@ -131,6 +131,15 @@ The first 5 rows of the cleaned dataframe are displayed as follows.
 
 ## Univariate Analysis
 
-<iframe src="assets/protein-dense-hist.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/protein-hist.html" width=800 height=600 frameBorder=0></iframe>
+
+Since we are studying protein concentration in vegetarian vs. 
+non-vegetarian food, it's important to view
+how protein content is distributed as a whole. One noticeable takeaway is
+that there are no obvious subgroups. If we saw two spikes in the graph
+it would suggest that there is a singular distinguishing factor that
+separates high-protein and low-protein food.
+
+<iframe src="assets/protein-and-vegetarian.html" width=800 height=600 frameBorder=0></iframe>
 
 #
