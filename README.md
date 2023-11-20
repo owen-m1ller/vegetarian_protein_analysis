@@ -212,26 +212,54 @@ is not NMAR.
 ## Missingness Dependency
 
 To test whether the missingness of protein depends on other columns,
-we can perform permutation tests.
+we can perform permutation tests. We will use the difference of means
+as our test statistic and have a significance level of 0.5.
 
 The first permutation test was used to test whether protein was
 missing conditionally based on whether the food was vegetarian or not.
-The test statistic used was a difference of means.
 The null hypothesis assumes that the values in `is_vegetarian` when
 protein is missing and when protein is not missing come from the same
-distribution. Our p value was .02, meaning we reject the null
+distribution. Our p-value was .02, meaning we reject the null
 hypothesis and that my system of marking protein values as NaN was
 likely biased towards recipes containing meat.
 
 The second permutation test was to test whether protein was missing
-conditionally on calory count. Once again difference of means
-was the test statistic. Interestingly enough, our p value was 0
+conditionally on calory count. Interestingly enough, our p-value was 0
 and so once again we reject the null hypothesis, leading us to
 believe that protein is missing conditionally at random
 based on calory count.
 
 <iframe src="assets/dist-cals-protein.html" width=800 height=600 frameBorder=0></iframe>
 
-Based on these two conclusions and that `is_vegetarian` correlates to
-lower protein amounts, these conclusions likely have to do with
-each other.
+The rejection of the null hypothesis in both of these tests makes
+sense since we'll alright seen some correlation between whether
+a recipe is vegetarian and its calory count.
+
+
+# Hypothesis Testing
+
+It is now time to conduct our hypothesis test. Our null hypothesis
+is that the protein per calory in vegetarian recipes on food.com 
+is the same or greater than the protein per calory in non-vegetarian 
+dishes. Our alternative hypothesis is that vegetarian recipes on
+food.com have less protein per calory than non-vegetarian recipes do.
+
+Typically, the larger your dataset and the lower the variance, the
+smaller your significance level should be. In our case, our dataset is
+quite large with 83782 rows and the variance of the `protein_per_cal`
+column is also quite low. Hence we will use a significance level of .01.
+We will have 1000 permutations in our test and use the difference in
+means as our test statistic. 
+
+<iframe src="assets/empirical.html" width=800 height=600 frameBorder=0></iframe>
+
+The p-value from our permutation test is 0, even with 1000 iterations.
+In the above chart, the dark line on the vertical axis
+represents the observed difference in means.
+Hence we reject the null hypothesis, suggesting that vegetarian 
+recipes likely contain less protein per calory than non-vegetarian
+recipes. People nervous about obtaining enough protein throughout 
+their day may therefore need to put in some extra care to get 
+protein from additional sources if relying completely on these online 
+recipes.
+
