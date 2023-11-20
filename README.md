@@ -179,7 +179,7 @@ This poses a problem for our analysis since most people eat
 only a certain amount of calories per day. Vegetarians could
 be eating more and making up for the smaller amount of protein they
 are eating per recipe. To account for this, we will use a new column
-in our hypothesis test: `protein_per_calory`. By studying this variable
+in our hypothesis test: `protein_per_cal`. By studying this variable
 we should get a better sense of how much protein vegetarians and
 non-vegetarians would be getting over the course of each day.
 
@@ -224,25 +224,25 @@ hypothesis and that my system of marking protein values as NaN was
 likely biased towards recipes containing meat.
 
 The second permutation test was to test whether protein was missing
-conditionally on calory count. Interestingly enough, our p-value was 0
+conditionally on calorie count. Interestingly enough, our p-value was 0
 and so once again we reject the null hypothesis, leading us to
 believe that protein is missing conditionally at random
-based on calory count.
+based on calorie count.
 
 <iframe src="assets/dist-cals-protein.html" width=800 height=600 frameBorder=0></iframe>
 
 The rejection of the null hypothesis in both of these tests makes
 sense since we'll alright seen some correlation between whether
-a recipe is vegetarian and its calory count.
+a recipe is vegetarian and its calorie count.
 
 
 # Hypothesis Testing
 
 It is now time to conduct our hypothesis test. Our null hypothesis
-is that the protein per calory in vegetarian recipes on food.com 
-is the same or greater than the protein per calory in non-vegetarian 
+is that the protein per calorie in vegetarian recipes on food.com 
+is the same or greater than the protein per calorie in non-vegetarian 
 dishes. Our alternative hypothesis is that vegetarian recipes on
-food.com have less protein per calory than non-vegetarian recipes do.
+food.com have less protein per calorie than non-vegetarian recipes do.
 
 Typically, the larger your dataset and the lower the variance, the
 smaller your significance level should be. In our case, our dataset is
@@ -257,7 +257,7 @@ The p-value from our permutation test is 0, even with 1000 iterations.
 In the above chart, the dark line on the vertical axis
 represents the observed difference in means.
 Hence we reject the null hypothesis, suggesting that vegetarian 
-recipes likely contain less protein per calory than non-vegetarian
+recipes likely contain less protein per calorie than non-vegetarian
 recipes. People nervous about obtaining enough protein throughout 
 their day may therefore need to put in some extra care to get 
 protein from additional sources if relying completely on these online 
