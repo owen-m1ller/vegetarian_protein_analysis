@@ -235,6 +235,11 @@ The rejection of the null hypothesis in both of these tests makes
 sense since we'll alright seen some correlation between whether
 a recipe is vegetarian and its calorie count.
 
+As a demonstration that this kind of permutation test fails to reject
+the null hypothesis when we test with a completely unrelated column,
+if we conduct the same test using `id` as our column, we find a p-value
+of .1. 
+
 
 # Hypothesis Testing
 
@@ -259,7 +264,7 @@ represents the observed difference in means.
 Hence we reject the null hypothesis, suggesting that vegetarian 
 recipes likely contain less protein per calorie than non-vegetarian
 recipes. People nervous about obtaining enough protein throughout 
-their day may therefore need to put in some extra care to get 
-protein from additional sources if relying completely on these online 
-recipes.
+their day may need to put in some extra care to get 
+protein from additional sources if they are relying completely on 
+these online recipes.
 
